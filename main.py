@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import streamlit as st
 from mlxtend.frequent_patterns import fpgrowth
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import association_rules
@@ -47,8 +48,11 @@ dataset = dataset.loc[:, topSupport]
 # print(dataset)
 
 res = fpgrowth(dataset, min_support=0.05, use_colnames=True)
-print(res.head(10))
+# print(res.head(10))
 
 res = association_rules(res, metric="lift", min_threshold=1)
 res.sort_values("confidence",ascending=False)
-print(res)
+# print(res)
+
+st.write("### FPGrowth Test Page With MLXTEND Library")
+st.table(res)
